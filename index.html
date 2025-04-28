@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task Page</title>
+    <style>
+        /* Basic Reset and Body Styling */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+            color: #333;
+        }
+
+        /* Main Task Container */
+        .task-container {
+            background-color: rgba(255, 255, 255, 0.95);
+            padding: 40px 50px;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            max-width: 500px;
+            width: 90%;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .task-container h1 {
+            margin-bottom: 30px;
+            color: #4a148c; /* Dark Purple */
+            font-size: 2em;
+            font-weight: 600;
+        }
+
+        /* Button Styling */
+        .task-button {
+            display: block;
+            width: 100%;
+            padding: 15px 20px;
+            margin-bottom: 20px;
+            font-size: 1.1em;
+            font-weight: 500;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            text-decoration: none; /* For <a> tags styled as buttons */
+            transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.3s ease;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .task-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .task-button:active {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Specific Button Colors */
+        #google-review-btn {
+            background-color: #4285F4; /* Google Blue */
+        }
+        #google-review-btn:hover {
+            background-color: #357ae8;
+        }
+
+        .btn-youtube {
+            background-color: #FF0000; /* YouTube Red */
+        }
+        .btn-youtube:hover {
+             background-color: #cc0000;
+        }
+
+        .btn-instagram {
+            background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%); /* Instagram Gradient */
+        }
+         .btn-instagram:hover {
+            opacity: 0.9;
+         }
+
+
+        /* Modal (Popup) Styling */
+        .modal {
+            display: none; /* Hidden by default */
+            position: fixed; /* Stay in place */
+            z-index: 1000; /* Sit on top */
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto; /* Enable scroll if needed */
+            background-color: rgba(0, 0, 0, 0.6); /* Black w/ opacity */
+            justify-content: center;
+            align-items: center;
+            animation: fadeInModal 0.3s ease-out;
+        }
+
+        @keyframes fadeInModal {
+             from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: auto;
+            padding: 30px 40px;
+            border-radius: 10px;
+            width: 85%;
+            max-width: 400px;
+            text-align: center;
+            position: relative;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            animation: slideIn 0.3s ease-out;
+        }
+
+         @keyframes slideIn {
+             from { transform: translateY(-30px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+
+        .modal-content h2 {
+            margin-bottom: 25px;
+            color: #555;
+            font-size: 1.5em;
+        }
+
+        .modal-button {
+            /* Make the single button more prominent */
+            display: inline-block;
+            padding: 12px 40px; /* Increased padding */
+            margin-top: 10px; /* Add some top margin */
+            font-size: 1.1em; /* Slightly larger font */
+            font-weight: 500;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            text-decoration: none;
+            background-color: #4CAF50; /* Green */
+            transition: background-color 0.2s ease, transform 0.2s ease;
+        }
+
+         .modal-button:hover {
+            background-color: #45a049;
+            transform: scale(1.05);
+         }
+
+        /* The Close Button */
+        .close-btn {
+            color: #aaa;
+            position: absolute;
+            top: 10px;
+            right: 20px;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: color 0.2s ease;
+        }
+
+        .close-btn:hover,
+        .close-btn:focus {
+            color: #333;
+            text-decoration: none;
+        }
+
+        /* Adding display:flex to show modal */
+        .modal.active {
+            display: flex;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="task-container">
+        <h1>Complete Important Tasks</h1>
+
+        <!-- Button 1: Google Review -->
+        <button id="google-review-btn" class="task-button">Give Google Review</button>
+
+        <!-- Button 2: Subscribe YT Channel -->
+        <a href="https://www.youtube.com/channel/UC6LNbItc7WdIeBZeELcMuBA" target="_blank" class="task-button btn-youtube">Subscribe YT Channel</a>
+
+        <!-- Button 3: Follow on Insta -->
+        <a href="https://www.instagram.com/cadpointofficial" target="_blank" class="task-button btn-instagram">Follow on Instagram</a>
+    </div>
+
+    <!-- The Modal (Popup for Google Review) -->
+    <div id="reviewModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <h2>Click to Review:</h2>
+            <!-- Only one Review Button -->
+            <a href="https://g.page/r/CePNrGRbp3k6EBM/review" target="_blank" class="modal-button">Review</a>
+        </div>
+    </div>
+
+    <script>
+        // Get the modal element
+        var modal = document.getElementById("reviewModal");
+
+        // Get the button that opens the modal
+        var btn = document.getElementById("google-review-btn");
+
+        // Get the <span> element that closes the modal
+        var span = document.getElementsByClassName("close-btn")[0];
+
+        // When the user clicks the button, open the modal
+        btn.onclick = function() {
+            modal.classList.add('active'); // Use flex display
+        }
+
+        // When the user clicks on <span> (x), close the modal
+        span.onclick = function() {
+            modal.classList.remove('active');
+        }
+
+        // When the user clicks anywhere outside of the modal content, close it
+        window.onclick = function(event) {
+            // Check if the clicked target is the modal background itself
+            if (event.target == modal) {
+                modal.classList.remove('active');
+            }
+        }
+
+         // Optional: Close modal after clicking the review link
+         var reviewLink = document.querySelector('.modal-button'); // Select the single button
+         if (reviewLink) { // Check if the button exists
+             reviewLink.onclick = function() {
+                 // Optional: delay closing slightly to allow link opening
+                 // setTimeout(function() {
+                 //     modal.classList.remove('active');
+                 // }, 100); // 100 milliseconds delay
+                 // Or close immediately:
+                 // modal.classList.remove('active');
+                 // Note: Closing immediately might sometimes interfere with the new tab opening.
+             }
+         }
+
+    </script>
+
+</body>
+</html>
